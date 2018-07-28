@@ -1,13 +1,11 @@
 #include <stdio.h>
 #include <pthread.h>
 #include <stdlib.h>
+#include "Caixa.h"
 
-void* func1(void*a);
-void* func2(void*a);
-void* func3(void*a);
+#define AT 20
 
-
-int main()
+int main(void)
 {
   int num1;
   int i ;
@@ -22,7 +20,7 @@ int main()
   for (i = 0; i < num1; i++)
   {
     //( endereço , atributos , funcao associada , argumento para funcao)
-    pthread_create(&(caixas[i]),NULL,func1,i + 1);
+    pthread_create(&(caixas[i]),NULL,caixa,i + 1);
   }
 
   for (i = 0; i < num1; i++)
@@ -32,13 +30,4 @@ int main()
   }
 
 return 0;
-}
-
-
-void* func1(void* a)
-{
-  int *numeracao = (int*) a;
-  printf("Caixa %d rodando...\n",numeracao);
-
-  return NULL;
 }
