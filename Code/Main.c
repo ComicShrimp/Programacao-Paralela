@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include "Caixa.h"
 
-#define AT 20
+#define TC 20
 
 int main(void)
 {
