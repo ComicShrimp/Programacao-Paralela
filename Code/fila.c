@@ -3,73 +3,79 @@
 #include <stdlib.h>
 #include "fila.h"
 
-struct lista {	// estrutura lista para implementação da lista
+struct lista {	// estrutura lista para implementaï¿½ï¿½o da lista
 	float info;
 	struct lista* prox;
 };
 
 struct fila {
-	Lista* ini;	// ponteiro para o nó do início da fila
-	Lista* fim;	// ponteiro para o nó do fim da fila
+	int tam;	// Variavel para guardar o tamanho da fila
+	Lista* ini;	// ponteiro para o nï¿½ do inï¿½cio da fila
+	Lista* fim;	// ponteiro para o nï¿½ do fim da fila
 };
-	
-Fila* fila_cria(void) {						// cria uma fila, alocando memória para ela
-	Fila* f = (Fila*) malloc(sizeof(Fila));	// aloca memória do tamanho de uma fila
-	f->ini = f->fim = NULL;					// inicializa os dois ponteiros (ini e fim) como nulos, pois a fila está vazia
-	return f;								// retorna o ponteiro que aponta para o endereço alocado
-}
-	
-void fila_insere(Fila* f, float v) {			// insere um elemento (nó) no fim da fila 
-	Lista* n = (Lista*) malloc(sizeof(Lista));	// aloca memória para o novo nó
-	n->info = v;								// guarda no nó o valor passado como argumento (float v)
-	n->prox = NULL;								// faz o próximo do nó ser nulo, pois será o último
-	if(f->fim != NULL)							// verifica se a fila não está vazia...
-		f->fim->prox = n;							// se não estiver, apenas faz o atual nó do fim apontar para o novo nó criado
-	else										// caso contrário...
-		f->ini = n;									// já que a fila está vazia, o novo nó será tanto o último como o primeiro. Então, é preciso atualizar "ini" também
-	f->fim = n;									// faz o ponteiro "fim" apontar para o novo nó, já que ele será mesmo o último da fila
+
+Fila* fila_cria(void) {						// cria uma fila, alocando memï¿½ria para ela
+	Fila* f = (Fila*) malloc(sizeof(Fila));	// aloca memï¿½ria do tamanho de uma fila
+	f->ini = f->fim = NULL;					// inicializa os dois ponteiros (ini e fim) como nulos, pois a fila estï¿½ vazia
+	f->tam = 0;								// Indica que o tamanho da fila Ã© 0
+	return f;								// retorna o ponteiro que aponta para o endereï¿½o alocado
 }
 
-int fila_vazia(Fila* f) {		// verifica se a fila está vazia ou não
-	return (f->ini == NULL);	// retorna o resultado (0 ou 1) da operação lógica de igualdade entre o ponteiro "ini" e NULL (se for NULL, a fila está vazia: retorna 1)
+void fila_insere(Fila* f, float v) {			// insere um elemento (nï¿½) no fim da fila
+	Lista* n = (Lista*) malloc(sizeof(Lista));	// aloca memï¿½ria para o novo nï¿½
+	n->info = v;								// guarda no nï¿½ o valor passado como argumento (float v)
+	n->prox = NULL;								// faz o prï¿½ximo do nï¿½ ser nulo, pois serï¿½ o ï¿½ltimo
+	if(f->fim != NULL)							// verifica se a fila nï¿½o estï¿½ vazia...
+		f->fim->prox = n;							// se nï¿½o estiver, apenas faz o atual nï¿½ do fim apontar para o novo nï¿½ criado
+	else										// caso contrï¿½rio...
+		f->ini = n;									// jï¿½ que a fila estï¿½ vazia, o novo nï¿½ serï¿½ tanto o ï¿½ltimo como o primeiro. Entï¿½o, ï¿½ preciso atualizar "ini" tambï¿½m
+	f->fim = n;									// faz o ponteiro "fim" apontar para o novo nï¿½, jï¿½ que ele serï¿½ mesmo o ï¿½ltimo da fila
+	f->tam += 1;
+}
+
+int fila_vazia(Fila* f) {		// verifica se a fila estï¿½ vazia ou nï¿½o
+	return (f->ini == NULL);	// retorna o resultado (0 ou 1) da operaï¿½ï¿½o lï¿½gica de igualdade entre o ponteiro "ini" e NULL (se for NULL, a fila estï¿½ vazia: retorna 1)
 }
 
 float fila_retira(Fila* f) {		// remove o primeiro elemento da fila (FIFO)
-	Lista* t;						// ponteiro auxiliar para guardar o nó que vai ser removido
+	Lista* t;						// ponteiro auxiliar para guardar o nï¿½ que vai ser removido
 	float v;
-	if(fila_vazia(f)) {				// verifica se a fila está vazia. Se estiver...
+	if(fila_vazia(f)) {				// verifica se a fila estï¿½ vazia. Se estiver...
 		printf("Fila vazia!\n");		// imprime mensagem de fila vazia
 		exit(1);						// e encerra o programa
-	}								// se não estiver, continua a função
-	t = f->ini;						// guarda temporariamente o endereço do primeiro nó
-	v = t->info;					// guarda temporariamente a informação do primeiro nó
-	f->ini = t->prox;				// atualiza ponteiro "ini" para o próximo elemento da fila
-	if(f->ini == NULL)				// se a fila tiver ficado vazia após a remoção...
-		f->fim = NULL;					// atualiza também o ponteiro do fim para NULL
-	free(t);						// libera o endereço do nó removido
-	return v;						// retorna o valor do nó removido (float)
+	}								// se nï¿½o estiver, continua a funï¿½ï¿½o
+	t = f->ini;						// guarda temporariamente o endereï¿½o do primeiro nï¿½
+	v = t->info;					// guarda temporariamente a informaï¿½ï¿½o do primeiro nï¿½
+	f->ini = t->prox;				// atualiza ponteiro "ini" para o prï¿½ximo elemento da fila
+	if(f->tam > 0){					//Verifica se o tam ja estÃ¡ em 0, caso nÃ£o esteja decrementa
+		f->tam -= 1;
+	}
+	if(f->ini == NULL)				// se a fila tiver ficado vazia apï¿½s a remoï¿½ï¿½o...
+		f->fim = NULL;					// atualiza tambï¿½m o ponteiro do fim para NULL
+	free(t);						// libera o endereï¿½o do nï¿½ removido
+	return v;						// retorna o valor do nï¿½ removido (float)
 }
 
-void fila_libera(Fila* f) {		// libera a memória alocada para a fila
-	Lista* q = f->ini;			// ponteiro auxiliar para começar a percorrer a lista da fila desde o início
-	while(q != NULL) {			// laço para percorrer a lista da fila
-		Lista* t = q->prox;			// guarda o endereço do próximo nó para que o atual seja liberado sem perder a lista
-		free(q);					// libera o nó atual
-		q = t;						// aponta para o próximo nó (que estava guardado em "t")
+void fila_libera(Fila* f) {		// libera a memï¿½ria alocada para a fila
+	Lista* q = f->ini;			// ponteiro auxiliar para comeï¿½ar a percorrer a lista da fila desde o inï¿½cio
+	while(q != NULL) {			// laï¿½o para percorrer a lista da fila
+		Lista* t = q->prox;			// guarda o endereï¿½o do prï¿½ximo nï¿½ para que o atual seja liberado sem perder a lista
+		free(q);					// libera o nï¿½ atual
+		q = t;						// aponta para o prï¿½ximo nï¿½ (que estava guardado em "t")
 	}
 	free(f);					// libera, por fim, o ponteiro da fila inteira
 }
 
-/* exercício 01 */
+/* exercï¿½cio 01 */
 void fila_imprime(Fila* f) {			// imprime todos os elementos da fila
-	if(!fila_vazia(f)) {				// verifica se a fila não está vazia. Se não estiver...
-		Lista* q = f->ini;					// ponteiro auxiliar para percorrer a lista da fila desde o início
-		while(q != NULL) {					// laço para percorrer a lista até o fim
-			printf("%.2f ", q->info);			// imprime informação (valor) do nó atual
-			q = q->prox;						// atualiza "q" para o próximo nó da lista
+	if(!fila_vazia(f)) {				// verifica se a fila nï¿½o estï¿½ vazia. Se nï¿½o estiver...
+		Lista* q = f->ini;					// ponteiro auxiliar para percorrer a lista da fila desde o inï¿½cio
+		while(q != NULL) {					// laï¿½o para percorrer a lista atï¿½ o fim
+			printf("%.2f ", q->info);			// imprime informaï¿½ï¿½o (valor) do nï¿½ atual
+			q = q->prox;						// atualiza "q" para o prï¿½ximo nï¿½ da lista
 		}
-		printf("\n");						// imprime nova linha ao fim da impressão da fila
-	} else								// caso contrário, se estiver vazia...
-		printf("Fila vazia!\n");			// imprime mensagem indicando que está vazia
+		printf("\n");						// imprime nova linha ao fim da impressï¿½o da fila
+	} else								// caso contrï¿½rio, se estiver vazia...
+		printf("Fila vazia!\n");			// imprime mensagem indicando que estï¿½ vazia
 }
 /****************/

@@ -5,29 +5,35 @@
 
 #define TC 20
 
-int main(void)
-{
-  int num1;
-  int i ;
-  printf("Digite o numero de caixas:");
-  scanf("%d",&num1);
-  printf("alocando %d caixas ao supermercado...\n",num1);
+int main(void){
 
-  //criando vetor de caixas e alocando dinamicamente
-  pthread_t *caixas;
-  caixas = malloc(num1 * sizeof(pthread_t));
+    int nCaixas;
+    int i;
 
-  for (i = 0; i < num1; i++)
-  {
-    //( endereço , atributos , funcao associada , argumento para funcao)
-    pthread_create(&(caixas[i]),NULL,caixa,i + 1);
-  }
+    //Limitando o numero de caixas para os valores de 1 a 10.
+    do{
 
-  for (i = 0; i < num1; i++)
-  {
-    //botando pra executar a thread ( thread escolida , valor de retorno)
-    pthread_join(caixas[i],NULL);
-  }
+        printf("Digite o numero de caixas:");
+        scanf("%d",&nCaixas);
 
-return 0;
+    }while((nCaixas < 1) && (nCaixas > 10));
+
+    printf("\nAlocando %d caixas ao supermercado...\n",nCaixas);
+
+    //criando vetor de caixas e alocando dinamicamente
+    pthread_t *caixas;
+    caixas = malloc(nCaixas * sizeof(pthread_t));
+
+    for (i = 0; i < nCaixas; i++){
+
+        //( endereço , atributos , funcao associada , argumento para funcao)
+        pthread_create(&(caixas[i]),NULL,caixa,i + 1);
+    }
+
+    for (i = 0; i < nCaixas; i++){
+
+        //botando pra executar a thread ( thread escolida , valor de retorno)
+        pthread_join(caixas[i],NULL);
+    }
+    return 0;
 }
