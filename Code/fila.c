@@ -1,10 +1,11 @@
 /* fila.c */
 #include <stdio.h>
 #include <stdlib.h>
+#include "Cliente.h"
 #include "fila.h"
 
 struct lista {	// estrutura lista para implementa��o da lista
-	float info;
+	int info;
 	struct lista* prox;
 };
 
@@ -19,7 +20,7 @@ Fila* fila_cria(void) {						// cria uma fila, alocando mem�ria para ela
 	return f;								// retorna o ponteiro que aponta para o endere�o alocado
 }
 
-void fila_insere(Fila* f, float v) {			// insere um elemento (n�) no fim da fila
+void fila_insere(Fila* f, int v) {			// insere um elemento (n�) no fim da fila
 	Lista* n = (Lista*) malloc(sizeof(Lista));	// aloca mem�ria para o novo n�
 	n->info = v;								// guarda no n� o valor passado como argumento (float v)
 	n->prox = NULL;								// faz o pr�ximo do n� ser nulo, pois ser� o �ltimo
@@ -34,9 +35,9 @@ int fila_vazia(Fila* f) {		// verifica se a fila est� vazia ou n�o
 	return (f->ini == NULL);	// retorna o resultado (0 ou 1) da opera��o l�gica de igualdade entre o ponteiro "ini" e NULL (se for NULL, a fila est� vazia: retorna 1)
 }
 
-float fila_retira(Fila* f) {		// remove o primeiro elemento da fila (FIFO)
+int fila_retira(Fila* f) {		// remove o primeiro elemento da fila (FIFO)
 	Lista* t;						// ponteiro auxiliar para guardar o n� que vai ser removido
-	float v;
+	int v;
 	if(fila_vazia(f)) {				// verifica se a fila est� vazia. Se estiver...
 		printf("Fila vazia!\n");		// imprime mensagem de fila vazia
 		exit(1);						// e encerra o programa
@@ -60,7 +61,8 @@ void fila_libera(Fila* f) {		// libera a mem�ria alocada para a fila
 	free(f);					// libera, por fim, o ponteiro da fila inteira
 }
 
-/* exerc�cio 01 */
+/*
+ exerc�cio 01
 void fila_imprime(Fila* f) {			// imprime todos os elementos da fila
 	if(!fila_vazia(f)) {				// verifica se a fila n�o est� vazia. Se n�o estiver...
 		Lista* q = f->ini;					// ponteiro auxiliar para percorrer a lista da fila desde o in�cio
@@ -72,4 +74,4 @@ void fila_imprime(Fila* f) {			// imprime todos os elementos da fila
 	} else								// caso contr�rio, se estiver vazia...
 		printf("Fila vazia!\n");			// imprime mensagem indicando que est� vazia
 }
-/****************/
+*/

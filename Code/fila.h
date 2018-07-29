@@ -1,38 +1,38 @@
 /* fila.h */
+#include "Cliente.h"
 
 /* Tipos exportado */
 typedef struct fila Fila;
 typedef struct lista Lista;
 
-/* Função cria
-** Aloca memória para uma estrutura do tipo Fila e retorna o ponteiro
+/* Funï¿½ï¿½o cria
+** Aloca memï¿½ria para uma estrutura do tipo Fila e retorna o ponteiro
 */
 Fila* fila_cria(void);
 
-/* Função insere
+/* Funï¿½ï¿½o insere
 ** Insere um elemento no fim da Fila
 */
-void fila_insere(Fila* f, float v);
+void fila_insere(Fila* f, int v);
 
-/* Função retira
-** Remove o elemento do início da Fila
+/* Funï¿½ï¿½o retira
+** Remove o elemento do inï¿½cio da Fila
 */
-float fila_retira(Fila* f);
+int fila_retira(Fila* f);
 
-/* Função vazia
-** Retorna um inteiro (0 ou 1), indicando se a Fila está vazia ou não
+/* Funï¿½ï¿½o vazia
+** Retorna um inteiro (0 ou 1), indicando se a Fila estï¿½ vazia ou nï¿½o
 */
 int fila_vazia(Fila* f);
 
-/* Função libera
-** Libera a memória alocada para a Fila
+/* Funï¿½ï¿½o libera
+** Libera a memï¿½ria alocada para a Fila
 */
 void fila_libera(Fila* f);
 
-/* exercício 01 */
-/* Função imprime
+/* exercï¿½cio 01 */
+/* Funï¿½ï¿½o imprime
 ** Imprime todos os elementos da fila em ordem
 */
-void fila_imprime(Fila* f);
+//void fila_imprime(Fila* f);
 /****************/
-

@@ -51,7 +51,7 @@ void* cliente(void* a){
         pthread_mutex_unlock(&trava);
     }
 
-    insere_cliente(c, caux);
+    insere_cliente(c->n, caux);
 
     return NULL;
 }
