@@ -2,6 +2,7 @@
 #include <pthread.h>
 #include <stdlib.h>
 #include "Caixa.h"
+#include "fila.h"
 
 #define TC 20
 
@@ -21,19 +22,21 @@ int main(void){
     printf("\nAlocando %d caixas ao supermercado...\n",nCaixas);
 
     //criando vetor de caixas e alocando dinamicamente
-    pthread_t *caixas;
-    caixas = malloc(nCaixas * sizeof(pthread_t));
+    pthread_t *cx;
+    cx = malloc(nCaixas * sizeof(pthread_t));
 
     for (i = 0; i < nCaixas; i++){
 
+        Caixa* aux = (Caixa*) malloc(sizeof(Caixa));
+
         //( endereço , atributos , funcao associada , argumento para funcao)
-        pthread_create(&(caixas[i]),NULL,caixa,i + 1);
+        pthread_create(&(cx[i]),NULL,cria_caixa,(void*) aux);
     }
 
     for (i = 0; i < nCaixas; i++){
 
         //botando pra executar a thread ( thread escolida , valor de retorno)
-        pthread_join(caixas[i],NULL);
+        pthread_join(cx[i],NULL);
     }
     return 0;
 }

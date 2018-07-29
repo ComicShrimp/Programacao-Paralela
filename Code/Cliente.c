@@ -4,7 +4,7 @@
 #include <time.h> //Vai ser usada para gerar a seed do rand
 
 #define MAXITENS 20
-#define TEMPO 5
+#define TEMPO 2
 
 struct cliente{
     int n;
@@ -14,7 +14,7 @@ struct cliente{
 
 void* cliente(void* a){
 
-    Cliente* c = (Cliente*) malloc(sizeof(Cliente));
+    Cliente* c = (Cliente*) a;
 
     srand((unsigned)time(NULL)); //Recria a seed com base na hora
 

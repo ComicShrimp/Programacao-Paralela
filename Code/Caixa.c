@@ -1,23 +1,18 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <stdio.h>
 #include "fila.h"
 #include "Caixa.h"
 
 #define COMP 10
 
-struct caixa{
-    Fila* fila;
-    int comp;
-};
+void* cria_caixa(void* a){
 
-void* caixa(void* a){
-
-    Caixa* ca = (Caixa*) malloc(sizeof(Caixa));
+    Caixa* ca = (Caixa*) a;
 
     srand((unsigned)time(NULL));
 
-    ca->comp = rand()%COMP;
+    ca->compe = rand()%COMP;
 
     ca->fila = fila_cria();
 
