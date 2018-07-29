@@ -15,7 +15,8 @@ struct argCaixa{
 
 void* cria_caixa(void* a){
 
-    int t_ini, t_fim, itens;
+    double t_ini, t_fim, t_total = 0;
+    int itens;
 
     struct argCaixa* c = (struct argCaixa*) a;
 
@@ -26,10 +27,10 @@ void* cria_caixa(void* a){
     ca->compe = rand()%COMP;
     ca->fila = fila_cria();
     ca->tamfila = c->cx->tamfila;
-    int expediente = *c->expediente;
 
-    while(expediente){
+    while(*c->expediente){
         if(!fila_vazia(ca->fila)){
+            printf("Cliente Sendo Atendido\n");
             t_ini = time(NULL);
 
             itens = fila_retira(ca->fila);
@@ -37,9 +38,12 @@ void* cria_caixa(void* a){
             sleep((itens + ca->compe) / ca->compe);
 
             t_fim = time(NULL);
-            printf("Tempo de Atendimeto: %d", t_fim - t_ini);
+            t_total += t_fim - t_ini;
+            printf("\nTempo de Atendimeto(itens: %d, Comp.: %d): %f", itens, ca->compe, t_fim - t_ini);
         }
     }
+
+    printf("C Encerrado\n");
 
     return NULL;
 }

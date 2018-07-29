@@ -40,7 +40,7 @@ int main(void){
     scanf("%d", &tempoc);
     printf("Tempo de loja aberta(em minutos): ");
     scanf("%d", &t_delay);
-    t_delay *= 60;
+    //t_delay *= 60;
 
     printf("O Programa Iniciou\n");
 
@@ -67,27 +67,35 @@ int main(void){
         argca.expediente = &expediente;
 
         //( endereço , atributos , funcao associada , argumento para funcao)
-        printf("Ola\n");
         pthread_create(&cx[i],NULL,cria_caixa,(void*) &argca);
     }
 
-    printf("Clientes chegando.\n");
+    printf("Clientes chegando.\n\n");
 
+    int n_thread = (t_delay / tempoc);
+    pthread_t n[n_thread];
+
+    int p = 0;
     while(time(NULL) - t_ini < t_delay){
-        pthread_t n;
-        pthread_create(&n, NULL, cliente,(void*) &argc);
+        printf("\nCliente Chegou\n");
+        pthread_create(&n[p], NULL, cliente,(void*) &argc);
         sleep(tempoc);
+        p++;
+    }
+
+    for(i = 0;i < n_thread;i++){
+        pthread_join(n[i], NULL);
     }
 
     expediente = 0;
 
-    printf("Expediente Encerrado !!!\n");
+    printf("\nExpediente Encerrado !!!\n");
 
     for(i = 0;i < nCaixas;i++){
         pthread_join(cx[i], NULL);
     }
 
-    printf("Cixas Encerrados, Fim de expediente.\n");
+    printf("Caixas Encerrados, Fim de expediente.\n");
 
     return 0;
 }
