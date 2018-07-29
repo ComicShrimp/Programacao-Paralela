@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include <pthread.h>
 #include <stdlib.h>
+#include <time.h>
 #include "Caixa.h"
 #include "fila.h"
+#include "unistd.h"
 
 #define TC 20
 
@@ -10,33 +12,49 @@ int main(void){
 
     int nCaixas;
     int i;
+    int tempoc;
+    float t_delay;
+
+    time_t t_ini,t_fim;
+
+    t_delay = 3;
 
     //Limitando o numero de caixas para os valores de 1 a 10.
     do{
 
-        printf("Digite o numero de caixas:");
+        printf("Digite o numero de caixas: ");
         scanf("%d",&nCaixas);
 
     }while((nCaixas < 1) && (nCaixas > 10));
 
-    printf("\nAlocando %d caixas ao supermercado...\n",nCaixas);
+    printf("\nDigite o tempo da chegada dos clientes: ");
+    scanf("%d", &tempoc);
+    printf("O Programa Iniciou\n");
+
+    t_ini = time(NULL);
 
     //criando vetor de caixas e alocando dinamicamente
-    pthread_t *cx;
-    cx = malloc(nCaixas * sizeof(pthread_t));
+    pthread_t cx[10];
+
+    //Criação dos caixas que irão atender os clientes
+    Caixa* aux = (Caixa*) malloc(nCaixas * sizeof(Caixa));
 
     for (i = 0; i < nCaixas; i++){
-
-        Caixa* aux = (Caixa*) malloc(sizeof(Caixa));
 
         //( endereço , atributos , funcao associada , argumento para funcao)
-        pthread_create(&(cx[i]),NULL,cria_caixa,(void*) aux);
+        printf("Ola\n");
+        pthread_create(&cx[i],NULL,cria_caixa,(void*) &aux[i]);
     }
 
-    for (i = 0; i < nCaixas; i++){
+    printf("Terminei\n");
+    float temp;
+    do{
+        printf("Executando\n");
+        t_fim = time(NULL);
+        temp = difftime(t_fim, t_ini);
+    }while(temp < t_delay);
 
-        //botando pra executar a thread ( thread escolida , valor de retorno)
-        pthread_join(cx[i],NULL);
-    }
+    printf("Acabou\n");
+
     return 0;
 }
