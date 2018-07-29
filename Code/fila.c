@@ -9,7 +9,6 @@ struct lista {	// estrutura lista para implementa��o da lista
 };
 
 struct fila {
-	int tam;	// Variavel para guardar o tamanho da fila
 	Lista* ini;	// ponteiro para o n� do in�cio da fila
 	Lista* fim;	// ponteiro para o n� do fim da fila
 };
@@ -17,7 +16,6 @@ struct fila {
 Fila* fila_cria(void) {						// cria uma fila, alocando mem�ria para ela
 	Fila* f = (Fila*) malloc(sizeof(Fila));	// aloca mem�ria do tamanho de uma fila
 	f->ini = f->fim = NULL;					// inicializa os dois ponteiros (ini e fim) como nulos, pois a fila est� vazia
-	f->tam = 0;								// Indica que o tamanho da fila é 0
 	return f;								// retorna o ponteiro que aponta para o endere�o alocado
 }
 
@@ -30,7 +28,6 @@ void fila_insere(Fila* f, float v) {			// insere um elemento (n�) no fim da fi
 	else										// caso contr�rio...
 		f->ini = n;									// j� que a fila est� vazia, o novo n� ser� tanto o �ltimo como o primeiro. Ent�o, � preciso atualizar "ini" tamb�m
 	f->fim = n;									// faz o ponteiro "fim" apontar para o novo n�, j� que ele ser� mesmo o �ltimo da fila
-	f->tam += 1;
 }
 
 int fila_vazia(Fila* f) {		// verifica se a fila est� vazia ou n�o
@@ -47,9 +44,6 @@ float fila_retira(Fila* f) {		// remove o primeiro elemento da fila (FIFO)
 	t = f->ini;						// guarda temporariamente o endere�o do primeiro n�
 	v = t->info;					// guarda temporariamente a informa��o do primeiro n�
 	f->ini = t->prox;				// atualiza ponteiro "ini" para o pr�ximo elemento da fila
-	if(f->tam > 0){					//Verifica se o tam ja está em 0, caso não esteja decrementa
-		f->tam -= 1;
-	}
 	if(f->ini == NULL)				// se a fila tiver ficado vazia ap�s a remo��o...
 		f->fim = NULL;					// atualiza tamb�m o ponteiro do fim para NULL
 	free(t);						// libera o endere�o do n� removido

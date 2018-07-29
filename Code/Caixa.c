@@ -3,12 +3,20 @@
 #include <time.h>
 #include "fila.h"
 #include "Caixa.h"
+#include "Cliente.h"
 
 #define COMP 10
 
+struct argCaixa{
+    Caixa* cx;
+    int* expediente;
+};
+
 void* cria_caixa(void* a){
 
-    Caixa* ca = (Caixa*) a;
+    struct argCaixa* c = (struct argCaixa*) a;
+
+    Caixa* ca = c->cx;
 
     srand((unsigned)time(NULL));
 
@@ -16,5 +24,11 @@ void* cria_caixa(void* a){
 
     ca->fila = fila_cria();
 
+    ca->tamfila = *c->expediente;
+
     return NULL;
+}
+
+void insere_cliente(Cliente* a, Caixa* c){
+
 }
