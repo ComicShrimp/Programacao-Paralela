@@ -13,11 +13,11 @@ int main(void){
     int nCaixas;
     int i;
     int tempoc;
-    float t_delay;
+    int t_delay;
 
-    time_t t_ini,t_fim;
+    long t_ini;
 
-    t_delay = 3;
+    t_delay = 0;
 
     //Limitando o numero de caixas para os valores de 1 a 10.
     do{
@@ -29,6 +29,8 @@ int main(void){
 
     printf("\nDigite o tempo da chegada dos clientes: ");
     scanf("%d", &tempoc);
+    printf("Tempo de loja aberta(em minutos): ");
+    scanf("%d", &t_delay);
     printf("O Programa Iniciou\n");
 
     t_ini = time(NULL);
@@ -46,14 +48,14 @@ int main(void){
         pthread_create(&cx[i],NULL,cria_caixa,(void*) &aux[i]);
     }
 
-    printf("Terminei\n");
-    float temp;
-    do{
+    printf("Terminei\n");;
+    while(time(NULL) - t_ini < t_delay){
         printf("Executando\n");
-        t_fim = time(NULL);
-        temp = difftime(t_fim, t_ini);
-    }while(temp < t_delay);
+        fflush(stdout);
+        sleep(tempoc);
+    }
 
+    fflush(stdout);
     printf("Acabou\n");
 
     return 0;
