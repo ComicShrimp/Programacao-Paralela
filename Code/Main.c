@@ -40,11 +40,9 @@ int main(void){
     scanf("%d", &tempoc);
     printf("\nTempo de loja aberta(em minutos): ");
     scanf("%d", &t_delay);
-    //t_delay *= 60;
+    t_delay *= 60;
 
     printf("O Programa Iniciou\n");
-
-    t_ini = time(NULL);
 
     //criando vetor de caixas e alocando dinamicamente
     pthread_t* cx = (pthread_t*) malloc(nCaixas * sizeof(pthread_t));
@@ -70,7 +68,9 @@ int main(void){
         pthread_create(&cx[i],NULL,cria_caixa,(void*) &argca[i]);
     }
 
-    printf("Clientes chegando.\n\n");
+    t_ini = time(NULL);
+
+    printf("Supermercado Aberto.\n\n");
 
     int n_thread = (t_delay / tempoc);
     pthread_t n[n_thread];

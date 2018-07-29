@@ -7,7 +7,7 @@
 #include <time.h> //Vai ser usada para gerar a seed do rand
 #include <unistd.h>
 
-#define MAXITENS 20
+#define MAXITENS 15
 #define TEMPO 1
 
 struct cliente{
@@ -28,9 +28,9 @@ void* cliente(void* a){
 
     struct argCliente* argc = (struct argCliente*) a;
 
-    srand((unsigned)time(NULL)); //Recria a seed com base na hora
+    srand(clock()); //Recria a seed com base no clock
 
-    c->n = rand()%MAXITENS;
+    c->n = 1 + (rand()%MAXITENS);
     c->tempo = c->n * TEMPO;
     Caixa* l = argc->cx;
 

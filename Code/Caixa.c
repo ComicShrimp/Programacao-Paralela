@@ -6,8 +6,6 @@
 #include "Caixa.h"
 #include "Cliente.h"
 
-#define COMP 10
-
 struct argCaixa{
     Caixa* cx;
     int* expediente;
@@ -22,9 +20,9 @@ void* cria_caixa(void* a){
 
     Caixa* ca = c->cx;
 
-    srand((unsigned)time(NULL));
+    srand(clock());
 
-    ca->compe = rand()%COMP;
+    ca->compe = rand()%10;
     ca->fila = fila_cria();
     ca->tamfila = c->cx->tamfila;
 
