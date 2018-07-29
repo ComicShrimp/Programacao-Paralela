@@ -28,7 +28,7 @@ void* cria_caixa(void* a){
 
     int atendimentos = 0;
 
-    while((*c->expediente) || (!fila_vazia(ca->fila))){
+    while((*c->expediente)/* || (!fila_vazia(ca->fila))*/){ //A fila agora para quando acaba o tempo
         if(!fila_vazia(ca->fila)){
             printf("\nCliente Sendo Atendido\n");
             t_ini = time(NULL);
