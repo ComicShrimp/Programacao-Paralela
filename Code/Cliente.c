@@ -41,20 +41,22 @@ void* cliente(void* a){
 
     int i;
 
-    for(i = 0;i < argc->nCaixas;i++){
+    pthread_mutex_lock(&trava);
 
-        pthread_mutex_lock(&trava);
+    for(i = 0;i < argc->nCaixas;i++){
 
         if((menor == -1) || (menor > l[i].tamfila)){
             menor = argc->cx->tamfila;
             caux = &argc->cx[i];
         }
-        pthread_mutex_unlock(&trava);
+
     }
 
     printf("\nEntrando na fila\n");
 
     insere_cliente(c->n, caux);
+
+    pthread_mutex_unlock(&trava);
 
     return NULL;
 }

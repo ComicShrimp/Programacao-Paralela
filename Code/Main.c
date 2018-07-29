@@ -59,15 +59,15 @@ int main(void){
     argc.nCaixas = nCaixas;
 
     //Passando parametros para passar pra função cria_caixa
-    struct argCaixa argca;
+    struct argCaixa* argca = (struct argCaixa*) malloc(nCaixas * sizeof(struct argCaixa));
 
     for (i = 0; i < nCaixas; i++){
 
-        argca.cx = &aux[i];
-        argca.expediente = &expediente;
+        argca[i].cx = &aux[i];
+        argca[i].expediente = &expediente;
 
         //( endereço , atributos , funcao associada , argumento para funcao)
-        pthread_create(&cx[i],NULL,cria_caixa,(void*) &argca);
+        pthread_create(&cx[i],NULL,cria_caixa,(void*) &argca[i]);
     }
 
     printf("Clientes chegando.\n\n");

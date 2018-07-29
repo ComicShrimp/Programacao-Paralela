@@ -43,6 +43,7 @@ void* cria_caixa(void* a){
             t_total += t_fim - t_ini;
             printf("\nTempo de Atendimeto(itens: %d, Comp.: %d): %.2f", itens, ca->compe, t_fim - t_ini);
             atendimentos++;
+            ca->tamfila -= 1;
         }
     }
 
@@ -52,5 +53,6 @@ void* cria_caixa(void* a){
 }
 
 void insere_cliente(int n, Caixa* c){
+    c->tamfila += 1;
     fila_insere(c->fila, n);
 }
