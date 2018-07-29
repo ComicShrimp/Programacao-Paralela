@@ -38,7 +38,7 @@ int main(void){
 
     printf("\nDigite o tempo da chegada dos clientes: ");
     scanf("%d", &tempoc);
-    printf("Tempo de loja aberta(em minutos): ");
+    printf("\nTempo de loja aberta(em minutos): ");
     scanf("%d", &t_delay);
     //t_delay *= 60;
 
@@ -47,7 +47,7 @@ int main(void){
     t_ini = time(NULL);
 
     //criando vetor de caixas e alocando dinamicamente
-    pthread_t cx[10];
+    pthread_t* cx = (pthread_t*) malloc(nCaixas * sizeof(pthread_t));
 
     //Criação dos caixas que irão atender os clientes
     Caixa* aux = (Caixa*) malloc(nCaixas * sizeof(Caixa));
@@ -83,6 +83,7 @@ int main(void){
         p++;
     }
 
+    //Espera todos os clientes chegarem ao caixa
     for(i = 0;i < n_thread;i++){
         pthread_join(n[i], NULL);
     }

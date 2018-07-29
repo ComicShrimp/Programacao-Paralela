@@ -28,7 +28,9 @@ void* cria_caixa(void* a){
     ca->fila = fila_cria();
     ca->tamfila = c->cx->tamfila;
 
-    while(*c->expediente){
+    int atendimentos = 0;
+
+    while((*c->expediente) || (!fila_vazia(ca->fila))){
         if(!fila_vazia(ca->fila)){
             printf("\nCliente Sendo Atendido\n");
             t_ini = time(NULL);
@@ -40,10 +42,11 @@ void* cria_caixa(void* a){
             t_fim = time(NULL);
             t_total += t_fim - t_ini;
             printf("\nTempo de Atendimeto(itens: %d, Comp.: %d): %f", itens, ca->compe, t_fim - t_ini);
+            atendimentos++;
         }
     }
 
-    printf("\nC Encerrado\n");
+    printf("\nC Encerrado %d\n",atendimentos);
 
     return NULL;
 }

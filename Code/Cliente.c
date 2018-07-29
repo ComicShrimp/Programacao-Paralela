@@ -52,7 +52,7 @@ void* cliente(void* a){
         pthread_mutex_unlock(&trava);
     }
 
-    printf("Entrando na fila\n");
+    printf("\nEntrando na fila\n");
 
     insere_cliente(c->n, caux);
 
