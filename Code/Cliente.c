@@ -8,7 +8,7 @@
 #include <unistd.h>
 
 #define MAXITENS 20
-#define TEMPO 2
+#define TEMPO 1
 
 struct cliente{
     int n;
@@ -32,6 +32,7 @@ void* cliente(void* a){
 
     c->n = rand()%MAXITENS;
     c->tempo = c->n * TEMPO;
+    Caixa* l = argc->cx;
 
     sleep(c->tempo);
 
@@ -39,17 +40,19 @@ void* cliente(void* a){
     int menor = -1;
 
     int i;
+
     for(i = 0;i < argc->nCaixas;i++){
 
         pthread_mutex_lock(&trava);
 
-        if((menor == -1) || (menor > argc->cx[i].tamfila)){
+        if((menor == -1) || (menor > l[i].tamfila)){
             menor = argc->cx->tamfila;
             caux = &argc->cx[i];
         }
-
         pthread_mutex_unlock(&trava);
     }
+
+    printf("Entrando na fila\n");
 
     insere_cliente(c->n, caux);
 

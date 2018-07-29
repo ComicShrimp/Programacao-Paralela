@@ -30,7 +30,7 @@ void* cria_caixa(void* a){
 
     while(*c->expediente){
         if(!fila_vazia(ca->fila)){
-            printf("Cliente Sendo Atendido\n");
+            printf("\nCliente Sendo Atendido\n");
             t_ini = time(NULL);
 
             itens = fila_retira(ca->fila);
@@ -43,7 +43,7 @@ void* cria_caixa(void* a){
         }
     }
 
-    printf("C Encerrado\n");
+    printf("\nC Encerrado\n");
 
     return NULL;
 }
