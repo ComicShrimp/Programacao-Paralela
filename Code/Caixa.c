@@ -41,7 +41,7 @@ void* cria_caixa(void* a){
 
             t_fim = time(NULL);
             t_total += t_fim - t_ini;
-            printf("\nTempo de Atendimeto(itens: %d, Comp.: %d): %f", itens, ca->compe, t_fim - t_ini);
+            printf("\nTempo de Atendimeto(itens: %d, Comp.: %d): %.2f", itens, ca->compe, t_fim - t_ini);
             atendimentos++;
         }
     }

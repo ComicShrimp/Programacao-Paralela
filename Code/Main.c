@@ -83,6 +83,8 @@ int main(void){
         p++;
     }
 
+    printf("\nExpediente Encerrado !!!\n");
+
     //Espera todos os clientes chegarem ao caixa
     for(i = 0;i < n_thread;i++){
         pthread_join(n[i], NULL);
@@ -90,7 +92,7 @@ int main(void){
 
     expediente = 0;
 
-    printf("\nExpediente Encerrado !!!\n");
+    printf("Todos os Clientes estao no caixa\n");
 
     for(i = 0;i < nCaixas;i++){
         pthread_join(cx[i], NULL);
