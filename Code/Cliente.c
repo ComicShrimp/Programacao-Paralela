@@ -20,6 +20,7 @@ struct cliente{
 struct argCliente{
     Caixa* cx;
     int nCaixas;
+    int* expediente;
     double* temp_fim;
     double* temp_ini;
 };
@@ -38,6 +39,8 @@ void* cliente(void* a){
     c->tempo = c->n * TEMPO;
     c->temp_ini = argc->temp_ini;
     c->temp_fim = argc->temp_fim;
+
+    *c->temp_fim = time(NULL);
 
     Caixa* l = argc->cx;
 
@@ -59,9 +62,13 @@ void* cliente(void* a){
 
     }
 
-    printf("\nEntrando na fila\n");
+    if(*argc->expediente){
+        printf("\nEntrando na Fila\n");
+    }else{
+        printf("\nSaindo do Supermercado\n");
+    }
 
-    *c->temp_ini = *c->temp_fim = time(NULL);
+    *c->temp_ini = time(NULL);
 
     caux->tamfila += 1;
 

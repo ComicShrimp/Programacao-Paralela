@@ -10,6 +10,7 @@
 struct argCliente{
     Caixa* cx;
     int nCaixas;
+    int* expediente;
     double* temp_fim;
     double* temp_ini;
 };
@@ -40,9 +41,7 @@ int main(void){
     scanf("%d", &tempoc);
     printf("\nTempo de loja aberta(em minutos): ");
     scanf("%d", &t_delay);
-    //t_delay *= 60;
-
-    printf("O Programa Iniciou\n");
+    t_delay *= 60;
 
     //criando vetor de caixas e alocando dinamicamente
     pthread_t* cx = (pthread_t*) malloc(nCaixas * sizeof(pthread_t));
@@ -62,11 +61,13 @@ int main(void){
         pthread_create(&cx[i],NULL,cria_caixa,(void*) &argca[i]);
     }
 
+    printf("\nContagem Iniciada\n");
+
     t_ini = time(NULL);
 
-    printf("Supermercado Aberto.\n\n");
+    printf("\nSupermercado Aberto.\n");
 
-    int n_thread = (t_delay / tempoc);
+    long n_thread = (t_delay / tempoc);
     pthread_t n[n_thread];
 
     //Passando parametros para o struct pra poder passar pra função cliente
@@ -78,13 +79,14 @@ int main(void){
     int p = 0;
     while(time(NULL) - t_ini < t_delay){
 
-        argc[i].cx = aux;
-        argc[i].nCaixas = nCaixas;
-        argc[i].temp_fim = &tempo_fim[i];
-        argc[i].temp_ini = &tempo_ini[i];
+        argc[p].cx = aux;
+        argc[p].nCaixas = nCaixas;
+        argc[p].expediente = &expediente;
+        argc[p].temp_fim = &tempo_fim[p];
+        argc[p].temp_ini = &tempo_ini[p];
 
         printf("\nCliente Chegou\n");
-        pthread_create(&n[p], NULL, cliente,(void*) &argc[i]);
+        pthread_create(&n[p], NULL, cliente,(void*) &argc[p]);
         sleep(tempoc);
         p++;
     }
@@ -99,28 +101,38 @@ int main(void){
     }
 
 
-    printf("Todos os Clientes estao no caixa\n");
+    printf("\nTodos os Clientes estao no caixa ou foram embora.\n");
 
     for(i = 0;i < nCaixas;i++){
         pthread_join(cx[i], NULL);
     }
 
-    printf("Caixas Encerrados, Fim de expediente.\n");
+    printf("\nCaixas Encerrados, Fim de expediente.\n");
 
     double media = 0;
     double tmp = 0;
-    int n_exec = 1;
+    int n_exec = 0;
+
+    printf("\nTempos Individuais\n");
 
     for(i = 0;i < n_thread;i++){
 
-        printf("Tempo decorrido %.2f\n", difftime(tempo_fim[i], tempo_ini[i]));
+        tmp = difftime(tempo_fim[i], tempo_ini[i]);
+
+        if(tmp >= 0){
+            n_exec++;
+            printf("Tempo %f\n", tmp);
+            media += tmp;
+        }
     }
 
-    printf("Executados %d\n", n_exec);
+    printf("\nClientes que chegaram ao Supermercado: %ld\n",n_thread);
+
+    printf("\nClientes Atendidos: %d\n", n_exec);
 
     media = media / n_exec;
 
-    printf("Tempo medio de atendimento %.2f\n", media);
+    printf("\nTempo medio de atendimento: %.2f\n", media);
 
     return 0;
 }
