@@ -13,16 +13,16 @@
 struct cliente{
     int n;
     int tempo;
-    double* temp_fim;
-    double* temp_ini;
+    clock_t* temp_fim;
+    clock_t* temp_ini;
 };
 
 struct argCliente{
     Caixa* cx;
     int nCaixas;
     int* expediente;
-    double* temp_fim;
-    double* temp_ini;
+    clock_t* temp_fim;
+    clock_t* temp_ini;
 };
 
 void* cliente(void* a){

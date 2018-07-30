@@ -11,8 +11,8 @@ struct argCliente{
     Caixa* cx;
     int nCaixas;
     int* expediente;
-    double* temp_fim;
-    double* temp_ini;
+    clock_t* temp_fim;
+    clock_t* temp_ini;
 };
 
 struct argCaixa{
@@ -67,14 +67,14 @@ int main(void){
 
     printf("\nSupermercado Aberto.\n");
 
-    long n_thread = (t_delay / tempoc);
+    int n_thread = (t_delay / tempoc);
     pthread_t n[n_thread];
 
     //Passando parametros para o struct pra poder passar pra função cliente
     struct argCliente* argc = (struct argCliente*) malloc(n_thread * sizeof(struct argCliente));
 
-    double* tempo_ini = (double*) malloc(n_thread * sizeof(double));
-    double* tempo_fim = (double*) malloc(n_thread * sizeof(double));
+    clock_t* tempo_ini = (clock_t*) malloc(n_thread * sizeof(clock_t));
+    clock_t* tempo_fim = (clock_t*) malloc(n_thread * sizeof(clock_t));
 
     int p = 0;
     while(time(NULL) - t_ini < t_delay){
@@ -117,7 +117,7 @@ int main(void){
 
     for(i = 0;i < n_thread;i++){
 
-        tmp = difftime(tempo_fim[i], tempo_ini[i]);
+        tmp = tempo_fim[i] - tempo_ini[i];//difftime(tempo_fim[i], tempo_ini[i]);
 
         if(tmp >= 0){
             n_exec++;
@@ -126,13 +126,19 @@ int main(void){
         }
     }
 
-    printf("\nClientes que chegaram ao Supermercado: %ld\n",n_thread);
+    printf("\nClientes que chegaram ao Supermercado: %d\n",n_thread);
 
     printf("\nClientes Atendidos: %d\n", n_exec);
 
     media = media / n_exec;
 
     printf("\nTempo medio de atendimento: %.2f\n", media);
+
+    //free(tempo_fim);
+    //free(tempo_ini);
+    free(argc);
+    free(argca);
+    free(aux);
 
     return 0;
 }

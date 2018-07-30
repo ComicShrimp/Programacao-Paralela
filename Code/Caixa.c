@@ -14,8 +14,8 @@ struct argCaixa{
 struct cliente{
     int n;
     int tempo;
-    double* temp_fim;
-    double* temp_ini;
+    clock_t* temp_fim;
+    clock_t* temp_ini;
 };
 
 void* cria_caixa(void* a){
@@ -51,6 +51,10 @@ void* cria_caixa(void* a){
             printf("\nTempo de Atendimeto(itens: %d, Comp.: %d): %.2f\n", itens, ca->compe, t_fim - t_ini);
             ca->tamfila -= 1;
         }
+    }
+
+    while(!fila_vazia(ca->fila)){
+        fila_retira(ca->fila);
     }
 
     return NULL;
