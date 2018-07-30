@@ -5,7 +5,7 @@
 #include "fila.h"
 
 struct lista {	// estrutura lista para implementa��o da lista
-	int info;
+	Cliente* info;
 	struct lista* prox;
 };
 
@@ -20,7 +20,7 @@ Fila* fila_cria(void) {						// cria uma fila, alocando mem�ria para ela
 	return f;								// retorna o ponteiro que aponta para o endere�o alocado
 }
 
-void fila_insere(Fila* f, int v) {			// insere um elemento (n�) no fim da fila
+void fila_insere(Fila* f, Cliente* v) {			// insere um elemento (n�) no fim da fila
 	Lista* n = (Lista*) malloc(sizeof(Lista));	// aloca mem�ria para o novo n�
 	n->info = v;								// guarda no n� o valor passado como argumento (float v)
 	n->prox = NULL;								// faz o pr�ximo do n� ser nulo, pois ser� o �ltimo
@@ -35,9 +35,9 @@ int fila_vazia(Fila* f) {		// verifica se a fila est� vazia ou n�o
 	return (f->ini == NULL);	// retorna o resultado (0 ou 1) da opera��o l�gica de igualdade entre o ponteiro "ini" e NULL (se for NULL, a fila est� vazia: retorna 1)
 }
 
-int fila_retira(Fila* f) {		// remove o primeiro elemento da fila (FIFO)
+Cliente* fila_retira(Fila* f) {		// remove o primeiro elemento da fila (FIFO)
 	Lista* t;						// ponteiro auxiliar para guardar o n� que vai ser removido
-	int v;
+	Cliente* v;
 	if(fila_vazia(f)) {				// verifica se a fila est� vazia. Se estiver...
 		printf("Fila vazia!\n");		// imprime mensagem de fila vazia
 		exit(1);						// e encerra o programa

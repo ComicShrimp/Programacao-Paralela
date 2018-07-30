@@ -11,6 +11,13 @@ struct argCaixa{
     int* expediente;
 };
 
+struct cliente{
+    int n;
+    int tempo;
+    double* temp_fim;
+    double* temp_ini;
+};
+
 void* cria_caixa(void* a){
 
     double t_ini, t_fim, t_total = 0;
@@ -28,16 +35,19 @@ void* cria_caixa(void* a){
 
     int atendimentos = 0;
 
-    while((*c->expediente)/* || (!fila_vazia(ca->fila))*/){ //A fila agora para quando acaba o tempo
+    while((*c->expediente) /*|| (!fila_vazia(ca->fila))*/){ //A fila agora para quando acaba o tempo
         if(!fila_vazia(ca->fila)){
             printf("\nCliente Sendo Atendido\n");
             t_ini = time(NULL);
 
-            itens = fila_retira(ca->fila);
+            Cliente* cl = fila_retira(ca->fila);
+
+            itens = cl->n;
 
             sleep((itens + ca->compe) / ca->compe);
 
             t_fim = time(NULL);
+            *cl->temp_fim = time(NULL);
             t_total += t_fim - t_ini;
             printf("\nTempo de Atendimeto(itens: %d, Comp.: %d): %.2f", itens, ca->compe, t_fim - t_ini);
             atendimentos++;
@@ -50,7 +60,8 @@ void* cria_caixa(void* a){
     return NULL;
 }
 
-void insere_cliente(int n, Caixa* c){
+void insere_cliente(Cliente* n, Caixa* c){
     c->tamfila += 1;
     fila_insere(c->fila, n);
+    printf("Inseriu\n");
 }

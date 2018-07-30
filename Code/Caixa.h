@@ -12,4 +12,4 @@ typedef struct caixa Caixa;
 
 void* cria_caixa(void* a);
 
-void insere_cliente(int n, Caixa* c);
+void insere_cliente(Cliente* n, Caixa* c);

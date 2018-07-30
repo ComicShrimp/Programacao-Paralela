@@ -13,11 +13,15 @@
 struct cliente{
     int n;
     int tempo;
+    double* temp_fim;
+    double* temp_ini;
 };
 
 struct argCliente{
     Caixa* cx;
     int nCaixas;
+    double* temp_fim;
+    double* temp_ini;
 };
 
 void* cliente(void* a){
@@ -32,6 +36,9 @@ void* cliente(void* a){
 
     c->n = 1 + (rand()%MAXITENS);
     c->tempo = c->n * TEMPO;
+    c->temp_ini = argc->temp_ini;
+    c->temp_fim = argc->temp_fim;
+
     Caixa* l = argc->cx;
 
     sleep(c->tempo);
@@ -54,7 +61,13 @@ void* cliente(void* a){
 
     printf("\nEntrando na fila\n");
 
-    insere_cliente(c->n, caux);
+    *c->temp_ini = *c->temp_fim = time(NULL);
+
+    caux->tamfila += 1;
+
+    fila_insere(caux->fila, c);
+
+    //insere_cliente(c, caux);
 
     pthread_mutex_unlock(&trava);
 

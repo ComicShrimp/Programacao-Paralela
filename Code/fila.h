@@ -13,12 +13,12 @@ Fila* fila_cria(void);
 /* Fun��o insere
 ** Insere um elemento no fim da Fila
 */
-void fila_insere(Fila* f, int v);
+void fila_insere(Fila* f, Cliente* v);
 
 /* Fun��o retira
 ** Remove o elemento do in�cio da Fila
 */
-int fila_retira(Fila* f);
+Cliente* fila_retira(Fila* f);
 
 /* Fun��o vazia
 ** Retorna um inteiro (0 ou 1), indicando se a Fila est� vazia ou n�o

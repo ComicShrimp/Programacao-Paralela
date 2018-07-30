@@ -7,11 +7,11 @@
 #include "fila.h"
 #include <unistd.h>
 
-#define TC 20
-
 struct argCliente{
     Caixa* cx;
     int nCaixas;
+    double* temp_fim;
+    double* temp_ini;
 };
 
 struct argCaixa{
@@ -40,7 +40,7 @@ int main(void){
     scanf("%d", &tempoc);
     printf("\nTempo de loja aberta(em minutos): ");
     scanf("%d", &t_delay);
-    t_delay *= 60;
+    //t_delay *= 60;
 
     printf("O Programa Iniciou\n");
 
@@ -49,12 +49,6 @@ int main(void){
 
     //Criação dos caixas que irão atender os clientes
     Caixa* aux = (Caixa*) malloc(nCaixas * sizeof(Caixa));
-
-    //Passando parametros para o struct pra poder passar pra função clinete
-    struct argCliente argc;
-
-    argc.cx = aux;
-    argc.nCaixas = nCaixas;
 
     //Passando parametros para passar pra função cria_caixa
     struct argCaixa* argca = (struct argCaixa*) malloc(nCaixas * sizeof(struct argCaixa));
@@ -75,13 +69,27 @@ int main(void){
     int n_thread = (t_delay / tempoc);
     pthread_t n[n_thread];
 
+    //Passando parametros para o struct pra poder passar pra função cliente
+    struct argCliente* argc = (struct argCliente*) malloc(n_thread * sizeof(struct argCliente));
+
+    double* tempo_ini = (double*) malloc(n_thread * sizeof(double));
+    double* tempo_fim = (double*) malloc(n_thread * sizeof(double));
+
     int p = 0;
     while(time(NULL) - t_ini < t_delay){
+
+        argc[i].cx = aux;
+        argc[i].nCaixas = nCaixas;
+        argc[i].temp_fim = &tempo_fim[i];
+        argc[i].temp_ini = &tempo_ini[i];
+
         printf("\nCliente Chegou\n");
-        pthread_create(&n[p], NULL, cliente,(void*) &argc);
+        pthread_create(&n[p], NULL, cliente,(void*) &argc[i]);
         sleep(tempoc);
         p++;
     }
+
+    expediente = 0;
 
     printf("\nExpediente Encerrado !!!\n");
 
@@ -90,7 +98,6 @@ int main(void){
         pthread_join(n[i], NULL);
     }
 
-    expediente = 0;
 
     printf("Todos os Clientes estao no caixa\n");
 
@@ -99,6 +106,21 @@ int main(void){
     }
 
     printf("Caixas Encerrados, Fim de expediente.\n");
+
+    double media = 0;
+    double tmp = 0;
+    int n_exec = 1;
+
+    for(i = 0;i < n_thread;i++){
+
+        printf("Tempo decorrido %.2f\n", difftime(tempo_fim[i], tempo_ini[i]));
+    }
+
+    printf("Executados %d\n", n_exec);
+
+    media = media / n_exec;
+
+    printf("Tempo medio de atendimento %.2f\n", media);
 
     return 0;
 }
