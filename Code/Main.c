@@ -121,7 +121,7 @@ int main(void){
 
         tmp = difftime(tempo_fim[i], tempo_ini[i]);
 
-        if(tmp >= 0){
+        if((tmp >= 0) && (tmp < 600)){
             n_exec++;
             printf("Tempo %f\n", tmp);
             media += tmp;
@@ -135,12 +135,6 @@ int main(void){
     media = media / n_exec;
 
     printf("\nTempo medio de atendimento: %.2f\n", media);
-
-    //free(tempo_fim);
-    //free(tempo_ini);
-    //free(argc);
-    //free(argca);
-    //free(aux);
 
     return 0;
 }
