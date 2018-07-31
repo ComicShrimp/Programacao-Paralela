@@ -62,11 +62,7 @@ void* cliente(void* a){
 
     }
 
-    if(*argc->expediente){
         printf("\nEntrando na Fila\n");
-    }else{
-        printf("\nSaindo do Supermercado\n");
-    }
 
     *c->temp_ini = time(NULL);
 

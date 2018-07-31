@@ -53,10 +53,6 @@ void* cria_caixa(void* a){
         }
     }
 
-    while(!fila_vazia(ca->fila)){
-        fila_retira(ca->fila);
-    }
-
     return NULL;
 }
 

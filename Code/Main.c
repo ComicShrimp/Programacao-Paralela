@@ -6,6 +6,7 @@
 #include "Cliente.h"
 #include "fila.h"
 #include <unistd.h>
+#include <math.h>
 
 struct argCliente{
     Caixa* cx;
@@ -67,7 +68,7 @@ int main(void){
 
     printf("\nSupermercado Aberto.\n");
 
-    int n_thread = (t_delay / tempoc);
+    int n_thread = ceil((t_delay / tempoc));
     pthread_t n[n_thread];
 
     //Passando parametros para o struct pra poder passar pra função cliente
@@ -95,11 +96,12 @@ int main(void){
 
     printf("\nExpediente Encerrado !!!\n");
 
+/*
     //Espera todos os clientes chegarem ao caixa
     for(i = 0;i < n_thread;i++){
         pthread_join(n[i], NULL);
     }
-
+*/
 
     printf("\nTodos os Clientes estao no caixa ou foram embora.\n");
 
@@ -117,7 +119,7 @@ int main(void){
 
     for(i = 0;i < n_thread;i++){
 
-        tmp = tempo_fim[i] - tempo_ini[i];//difftime(tempo_fim[i], tempo_ini[i]);
+        tmp = difftime(tempo_fim[i], tempo_ini[i]);
 
         if(tmp >= 0){
             n_exec++;
@@ -136,9 +138,9 @@ int main(void){
 
     //free(tempo_fim);
     //free(tempo_ini);
-    free(argc);
-    free(argca);
-    free(aux);
+    //free(argc);
+    //free(argca);
+    //free(aux);
 
     return 0;
 }
