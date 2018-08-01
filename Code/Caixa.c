@@ -55,9 +55,3 @@ void* cria_caixa(void* a){
 
     return NULL;
 }
-
-void insere_cliente(Cliente* n, Caixa* c){
-    c->tamfila += 1;
-    fila_insere(c->fila, n);
-    printf("Inseriu\n");
-}

@@ -11,5 +11,3 @@ struct caixa{           //Na função Main
 typedef struct caixa Caixa;
 
 void* cria_caixa(void* a);
-
-void insere_cliente(Cliente* n, Caixa* c);

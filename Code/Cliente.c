@@ -70,8 +70,6 @@ void* cliente(void* a){
 
     fila_insere(caux->fila, c);
 
-    //insere_cliente(c, caux);
-
     pthread_mutex_unlock(&trava);
 
     return NULL;
