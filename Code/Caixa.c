@@ -6,11 +6,13 @@
 #include "Caixa.h"
 #include "Cliente.h"
 
+//Struct com os argumentos que serão recebidos pela função
 struct argCaixa{
     Caixa* cx;
     int* expediente;
 };
 
+//Struct que representa o cliente
 struct cliente{
     int n;
     int tempo;
@@ -20,21 +22,28 @@ struct cliente{
 
 void* cria_caixa(void* a){
 
+    //Variaveis que irão guardar medidas de tempo
     double t_ini, t_fim, t_total = 0;
-    int itens;
+    int itens; //Numero de itens do cliente
 
+    //Transforma o ponteiro void para ponteiro do struct argCaixa
     struct argCaixa* c = (struct argCaixa*) a;
 
-    Caixa* ca = c->cx;
+    Caixa* ca = c->cx; //Defini o caixa recebido à uma varivel local
 
-    srand(clock());
+    srand(clock()); //Recria a seed do rand com base no clock da cpu
 
-    ca->compe = rand()%10;
-    ca->fila = fila_cria();
-    ca->tamfila = c->cx->tamfila;
+    ca->compe = rand()%10; //Defini a competência do caixa de forma aleatoria
+    ca->fila = fila_cria(); //Cria uma fila para o caixa
+    ca->tamfila = c->cx->tamfila; //Defini à variavel local a varivavel alocada
+                                  //função main
 
-    while((*c->expediente) /*|| (!fila_vazia(ca->fila))*/){ //A fila agora para quando acaba o tempo
+    //Caixa irá continuar esperando ou atendendo clientes enquato houver expediente
+    while(*c->expediente){
+
+        //Verifica se tem clientes na fila.
         if(!fila_vazia(ca->fila)){
+            //Indica ao usuario qunaod um cliente é atendido.
             printf("\nCliente Sendo Atendido\n");
             t_ini = time(NULL);
 

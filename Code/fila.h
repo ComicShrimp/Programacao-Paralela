@@ -29,10 +29,3 @@ int fila_vazia(Fila* f);
 ** Libera a mem�ria alocada para a Fila
 */
 void fila_libera(Fila* f);
-
-/* exerc�cio 01 */
-/* Fun��o imprime
-** Imprime todos os elementos da fila em ordem
-*/
-//void fila_imprime(Fila* f);
-/****************/

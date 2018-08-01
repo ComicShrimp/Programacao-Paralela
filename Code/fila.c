@@ -60,18 +60,3 @@ void fila_libera(Fila* f) {		// libera a mem�ria alocada para a fila
 	}
 	free(f);					// libera, por fim, o ponteiro da fila inteira
 }
-
-/*
- exerc�cio 01
-void fila_imprime(Fila* f) {			// imprime todos os elementos da fila
-	if(!fila_vazia(f)) {				// verifica se a fila n�o est� vazia. Se n�o estiver...
-		Lista* q = f->ini;					// ponteiro auxiliar para percorrer a lista da fila desde o in�cio
-		while(q != NULL) {					// la�o para percorrer a lista at� o fim
-			printf("%.2f ", q->info);			// imprime informa��o (valor) do n� atual
-			q = q->prox;						// atualiza "q" para o pr�ximo n� da lista
-		}
-		printf("\n");						// imprime nova linha ao fim da impress�o da fila
-	} else								// caso contr�rio, se estiver vazia...
-		printf("Fila vazia!\n");			// imprime mensagem indicando que est� vazia
-}
-*/
