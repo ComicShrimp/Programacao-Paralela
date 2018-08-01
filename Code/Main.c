@@ -1,3 +1,4 @@
+//Bibliotecas importadas
 #include <stdio.h>
 #include <pthread.h>
 #include <stdlib.h>
@@ -8,6 +9,7 @@
 #include <unistd.h>
 #include <math.h>
 
+//Struct para guardar argumentos necessarios ao cliente
 struct argCliente{
     Caixa* cx;
     int nCaixas;
@@ -16,11 +18,13 @@ struct argCliente{
     clock_t* temp_ini;
 };
 
+//Struct para guardar argumentos necessarios ao caixa
 struct argCaixa{
     Caixa* cx;
     int* expediente;
 };
 
+//Função Principal
 int main(void){
 
     // nCaixas = numero de caixas  i = variavel para laços for
